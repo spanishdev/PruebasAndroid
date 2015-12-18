@@ -1,0 +1,165 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: WidgetActivity</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.pruebasandroid</a> ]
+</div>
+
+<h1>Coverage Summary for Class: WidgetActivity (com.example.pruebasandroid)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">WidgetActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">WidgetActivity$$ViewBinder</td>
+<td class="coverageStat">
+  <span class="percent">
+    66,7%
+  </span>
+  <span class="absValue">
+    (2/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66,7%
+  </span>
+  <span class="absValue">
+    (6/ 9)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">WidgetActivity$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/ 3)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    85,7%
+  </span>
+  <span class="absValue">
+    (6/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83,3%
+  </span>
+  <span class="absValue">
+    (15/ 18)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.pruebasandroid;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import android.app.Activity;
+<i>4</i>&nbsp;import android.os.Bundle;
+<i>5</i>&nbsp;import android.view.View;
+<i>6</i>&nbsp;import android.widget.Button;
+<i>7</i>&nbsp;import android.widget.EditText;
+<b class="fc"><i>8</i>&nbsp;</b>
+<i>9</i>&nbsp;import butterknife.Bind;
+<i>10</i>&nbsp;import butterknife.ButterKnife;
+<b class="fc"><i>11</i>&nbsp;</b>
+<b class="fc"><i>12</i>&nbsp;public class WidgetActivity extends Activity {</b>
+<b class="fc"><i>13</i>&nbsp;</b>
+<b class="fc"><i>14</i>&nbsp;    @Bind(R.id.button)  Button button;</b>
+<b class="fc"><i>15</i>&nbsp;    @Bind(R.id.editText)  EditText textEdit;</b>
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    @Override
+<b class="nc"><i>18</i>&nbsp;    protected void onCreate(Bundle savedInstanceState) {</b>
+<b class="pc"><i>19</i>&nbsp;        super.onCreate(savedInstanceState);</b>
+<b class="pc"><i>20</i>&nbsp;        setContentView(R.layout.widget_activity);</b>
+<i>21</i>&nbsp;
+<b class="fc"><i>22</i>&nbsp;        ButterKnife.bind(this);</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;//        button= (Button) findViewById(R.id.button);
+<i>25</i>&nbsp;//        textEdit= (EditText) findViewById(R.id.editText);
+<i>26</i>&nbsp;
+<b class="fc"><i>27</i>&nbsp;        button.setOnClickListener(new View.OnClickListener() {</b>
+<i>28</i>&nbsp;            @Override
+<i>29</i>&nbsp;            public void onClick(View v)
+<i>30</i>&nbsp;            {
+<b class="fc"><i>31</i>&nbsp;                textEdit.setText(&quot;Hola&quot;);</b>
+<b class="fc"><i>32</i>&nbsp;            }</b>
+<i>33</i>&nbsp;        });
+<b class="fc"><i>34</i>&nbsp;    }</b>
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2015-12-18 17:05</div>
+</div>
+</body>
+</html>

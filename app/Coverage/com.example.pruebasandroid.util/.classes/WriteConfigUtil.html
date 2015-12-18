@@ -1,0 +1,147 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: WriteConfigUtil</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.pruebasandroid.util</a> ]
+</div>
+
+<h1>Coverage Summary for Class: WriteConfigUtil (com.example.pruebasandroid.util)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">WriteConfigUtil</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33,3%
+  </span>
+  <span class="absValue">
+    (1/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (15/ 30)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.pruebasandroid.util;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import android.content.Context;
+<i>4</i>&nbsp;import android.os.Environment;
+<i>5</i>&nbsp;import android.util.Log;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import com.example.pruebasandroid.sqlite.Database;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import java.io.BufferedWriter;
+<i>10</i>&nbsp;import java.io.File;
+<i>11</i>&nbsp;import java.io.FileInputStream;
+<i>12</i>&nbsp;import java.io.FileOutputStream;
+<i>13</i>&nbsp;import java.io.IOException;
+<i>14</i>&nbsp;import java.nio.channels.FileChannel;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;/**
+<i>17</i>&nbsp; * Created by Jordi on 14/12/2015.
+<i>18</i>&nbsp; */
+<b class="nc"><i>19</i>&nbsp;public class WriteConfigUtil {</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    public static void writeConfiguration(Context ctx) {
+<b class="nc"><i>22</i>&nbsp;        BufferedWriter writer = null;</b>
+<i>23</i>&nbsp;        try {
+<b class="nc"><i>24</i>&nbsp;            FileOutputStream openFileOutput =</b>
+<i>25</i>&nbsp;                    ctx.openFileOutput(&quot;config.txt&quot;, Context.MODE_PRIVATE);
+<b class="nc"><i>26</i>&nbsp;            openFileOutput.write(&quot;This is a test1.&quot;.getBytes());</b>
+<b class="nc"><i>27</i>&nbsp;            openFileOutput.write(&quot;This is a test2.&quot;.getBytes());</b>
+<b class="nc"><i>28</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i>29</i>&nbsp;            throw new RuntimeException(e);</b>
+<i>30</i>&nbsp;        } finally {
+<b class="nc"><i>31</i>&nbsp;            if (writer != null) {</b>
+<i>32</i>&nbsp;                try {
+<b class="nc"><i>33</i>&nbsp;                    writer.close();</b>
+<b class="nc"><i>34</i>&nbsp;                } catch (IOException e) {</b>
+<b class="nc"><i>35</i>&nbsp;                    e.printStackTrace();</b>
+<b class="nc"><i>36</i>&nbsp;                }</b>
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;            }
+<i>39</i>&nbsp;        }
+<b class="nc"><i>40</i>&nbsp;    }</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    public static void exportDB(Context context) {
+<b class="fc"><i>43</i>&nbsp;        File sd = Environment.getExternalStorageDirectory();</b>
+<b class="fc"><i>44</i>&nbsp;        File currentDB = context.getDatabasePath(Database.DATABASE_NAME);</b>
+<i>45</i>&nbsp;
+<b class="fc"><i>46</i>&nbsp;        Log.i(&quot;DATA DIR&quot;,currentDB.getPath());</b>
+<i>47</i>&nbsp;
+<b class="fc"><i>48</i>&nbsp;        FileChannel source = null;</b>
+<b class="fc"><i>49</i>&nbsp;        FileChannel destination = null;</b>
+<b class="fc"><i>50</i>&nbsp;        String currentDBPath =  Database.DATABASE_NAME;</b>
+<b class="fc"><i>51</i>&nbsp;        String backupDBPath = Database.DATABASE_NAME;</b>
+<i>52</i>&nbsp;//        File currentDB = new File(data, currentDBPath);
+<b class="fc"><i>53</i>&nbsp;        File backupDB = new File(sd, backupDBPath);</b>
+<i>54</i>&nbsp;        try {
+<b class="fc"><i>55</i>&nbsp;            source = new FileInputStream(currentDB).getChannel();</b>
+<b class="fc"><i>56</i>&nbsp;            destination = new FileOutputStream(backupDB).getChannel();</b>
+<b class="fc"><i>57</i>&nbsp;            destination.transferFrom(source, 0, source.size());</b>
+<b class="fc"><i>58</i>&nbsp;            source.close();</b>
+<b class="fc"><i>59</i>&nbsp;            destination.close();</b>
+<b class="nc"><i>60</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>61</i>&nbsp;            e.printStackTrace();</b>
+<b class="fc"><i>62</i>&nbsp;        }</b>
+<b class="fc"><i>63</i>&nbsp;    }</b>
+<i>64</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2015-12-18 17:05</div>
+</div>
+</body>
+</html>

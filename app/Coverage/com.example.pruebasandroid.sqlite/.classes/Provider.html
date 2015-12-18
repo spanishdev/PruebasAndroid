@@ -1,0 +1,190 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Provider</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.pruebasandroid.sqlite</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Provider (com.example.pruebasandroid.sqlite)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Provider</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87,5%
+  </span>
+  <span class="absValue">
+    (7/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (27/ 30)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.pruebasandroid.sqlite;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import android.content.ContentProvider;
+<i>4</i>&nbsp;import android.content.ContentUris;
+<i>5</i>&nbsp;import android.content.ContentValues;
+<i>6</i>&nbsp;import android.content.UriMatcher;
+<i>7</i>&nbsp;import android.database.Cursor;
+<i>8</i>&nbsp;import android.database.SQLException;
+<i>9</i>&nbsp;import android.database.sqlite.SQLiteDatabase;
+<i>10</i>&nbsp;import android.net.Uri;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * Created by Jordi on 16/12/2015.
+<i>14</i>&nbsp; */
+<b class="fc"><i>15</i>&nbsp;public class Provider extends ContentProvider {</b>
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    public static final String AUTHORITY=&quot;com.example.pruebasandroid.provider&quot;;
+<b class="fc"><i>18</i>&nbsp;    public static final Uri MAIN_URL=Uri.parse(&quot;content://&quot;+AUTHORITY);</b>
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;//    public static final Uri CONTENT_URI = Uri.parse(MAIN_URL);
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;
+<b class="fc"><i>23</i>&nbsp;    private UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);</b>
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    private Database database;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    @Override
+<i>28</i>&nbsp;    public boolean onCreate() {
+<b class="fc"><i>29</i>&nbsp;        uriMatcher.addURI(AUTHORITY,&quot;tabla1&quot;,1);</b>
+<b class="fc"><i>30</i>&nbsp;        database=new Database(getContext());</b>
+<b class="fc"><i>31</i>&nbsp;        return true;</b>
+<i>32</i>&nbsp;    }
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    @Override
+<i>35</i>&nbsp;    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+<i>36</i>&nbsp;
+<b class="fc"><i>37</i>&nbsp;        SQLiteDatabase db=database.getReadableDatabase();</b>
+<i>38</i>&nbsp;
+<b class="fc"><i>39</i>&nbsp;        switch(uriMatcher.match(uri))</b>
+<i>40</i>&nbsp;        {
+<i>41</i>&nbsp;            case 1:
+<b class="fc"><i>42</i>&nbsp;                return db.query(&quot;tabla1&quot;,projection,selection,selectionArgs,null,null,sortOrder);</b>
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;            default:
+<b class="nc"><i>45</i>&nbsp;                throw new IllegalStateException(&quot;No se pudo resolver la URI&quot;);</b>
+<i>46</i>&nbsp;        }
+<i>47</i>&nbsp;    }
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    @Override
+<i>50</i>&nbsp;    public String getType(Uri uri) {
+<b class="nc"><i>51</i>&nbsp;        return null;</b>
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    @Override
+<i>55</i>&nbsp;    public Uri insert(Uri uri, ContentValues values) {
+<i>56</i>&nbsp;
+<b class="fc"><i>57</i>&nbsp;        long rowID=-1;</b>
+<b class="fc"><i>58</i>&nbsp;        SQLiteDatabase db=database.getWritableDatabase();</b>
+<b class="fc"><i>59</i>&nbsp;        switch(uriMatcher.match(uri))</b>
+<i>60</i>&nbsp;        {
+<i>61</i>&nbsp;            case 1:
+<b class="fc"><i>62</i>&nbsp;                rowID=db.insert(&quot;tabla1&quot;, null, values);</b>
+<i>63</i>&nbsp;                break;
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;        }
+<b class="fc"><i>66</i>&nbsp;        if(rowID&gt;=0){</b>
+<b class="fc"><i>67</i>&nbsp;            Uri _uri = ContentUris.withAppendedId(MAIN_URL, rowID);</b>
+<b class="fc"><i>68</i>&nbsp;            getContext().getContentResolver().notifyChange(_uri, null);</b>
+<b class="fc"><i>69</i>&nbsp;            return _uri;</b>
+<i>70</i>&nbsp;        }
+<b class="nc"><i>71</i>&nbsp;        throw new SQLException(&quot;Failed to add a record into &quot; + uri);</b>
+<i>72</i>&nbsp;    }
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;    @Override
+<i>75</i>&nbsp;    public int delete(Uri uri, String selection, String[] selectionArgs) {
+<i>76</i>&nbsp;
+<b class="fc"><i>77</i>&nbsp;        SQLiteDatabase db = database.getWritableDatabase();</b>
+<i>78</i>&nbsp;
+<b class="fc"><i>79</i>&nbsp;        int rowsAffected=0;</b>
+<b class="fc"><i>80</i>&nbsp;        switch(uriMatcher.match(uri))</b>
+<i>81</i>&nbsp;        {
+<i>82</i>&nbsp;            case 1:
+<b class="fc"><i>83</i>&nbsp;                rowsAffected=db.delete(&quot;tabla1&quot;,selection,selectionArgs);</b>
+<i>84</i>&nbsp;                break;
+<i>85</i>&nbsp;
+<i>86</i>&nbsp;        }
+<i>87</i>&nbsp;
+<b class="fc"><i>88</i>&nbsp;        return rowsAffected;</b>
+<i>89</i>&nbsp;    }
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;    @Override
+<i>92</i>&nbsp;    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+<b class="fc"><i>93</i>&nbsp;        SQLiteDatabase db = database.getWritableDatabase();</b>
+<i>94</i>&nbsp;
+<b class="fc"><i>95</i>&nbsp;        int rowsAffected=0;</b>
+<b class="fc"><i>96</i>&nbsp;        switch(uriMatcher.match(uri))</b>
+<i>97</i>&nbsp;        {
+<i>98</i>&nbsp;            case 1:
+<b class="fc"><i>99</i>&nbsp;                rowsAffected=db.update(&quot;tabla1&quot;,values,selection,selectionArgs);</b>
+<i>100</i>&nbsp;                break;
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;        }
+<i>103</i>&nbsp;
+<b class="fc"><i>104</i>&nbsp;        return rowsAffected;</b>
+<i>105</i>&nbsp;    }
+<i>106</i>&nbsp;
+<i>107</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2015-12-18 17:05</div>
+</div>
+</body>
+</html>
